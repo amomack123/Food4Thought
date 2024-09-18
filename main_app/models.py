@@ -14,3 +14,7 @@ class Restaurant(models.Model):
 
     def get_absolute_url(self):
         return reverse('restaurant-detail', kwargs={'restaurant': self.id})
+    
+class Review(models.Model):
+    stars = models.IntegerField()
+    comment = models.TextField(max_length=250)

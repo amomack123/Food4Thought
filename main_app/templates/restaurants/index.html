@@ -12,7 +12,10 @@
         <div class="card">
             <a href="/restaurants/{{restaurant.id}}">
                 <h2 class="card-title">{{ restaurant.name }}</h2>
-                <p><small>{{ restaurant.category }}</small></p>
+                {% comment %} <p><small>{{ restaurant.categories }}</small></p> {% endcomment %}
+                {% for element in restaurant.categories %}
+                <p>{{ element.title }}</p>
+                {% endfor %}
             </a>
         </div>
       </div>
