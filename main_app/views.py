@@ -2,9 +2,17 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from .models import Restaurant
 from .forms import ReviewForm
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 import requests
 
 MY_API_KEY = 'Gg65rpmjeX_dtHi23G6_dX9GrUnRI8i-p5x4SSTcmyUi8C2pElUS-bvsn2nbuIrPc1QvfxV9lMxvGeVGmkeI3D8b8tIw7CfTqdvr36sXpCtPSIjMO493ccuH5QHqZnYx'
+
+class Home(LoginView):
+    template_name = 'home.html'
 
 def home(request):
     return render(request, 'base.html')
@@ -35,6 +43,7 @@ def restaurant_index(request):
 
     return render(request, 'restaurants/index.html', {'restaurants': restaurants})
 
+@login_required
 def add_review(request, restaurant_id):
     form = ReviewForm(request.POST)
     if form.is_valid():
@@ -42,3 +51,17 @@ def add_review(request, restaurant_id):
         new_review.restaurant_id = restaurant_id
         new_review.save()
     return redirect('restaurant-detail', restaurant_id=restaurant_id)
+
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('restaurant-index')
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'signup.html', context)

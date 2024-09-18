@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+
 
 STARS = (
     ('1', 1),
@@ -29,6 +31,7 @@ class Review(models.Model):
     stars = models.CharField(max_length=1, choices=STARS)
     comment = models.TextField(max_length=250)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.stars
