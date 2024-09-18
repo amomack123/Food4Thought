@@ -1,6 +1,16 @@
 from django.db import models
 from django.urls import reverse
 
+STARS = (
+    ('1', 1),
+    ('2', 2),
+    ('3', 3),
+    ('4', 4),
+    ('5', 5)
+)
+
+# STARS = [(i, str(i)) for i in range(1, 6)]
+
 class Restaurant(models.Model):
     # yelp_id = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=100)
@@ -14,7 +24,11 @@ class Restaurant(models.Model):
 
     def get_absolute_url(self):
         return reverse('restaurant-detail', kwargs={'restaurant': self.id})
-    
+
 class Review(models.Model):
-    stars = models.IntegerField()
+    stars = models.CharField(max_length=1, choices=STARS)
     comment = models.TextField(max_length=250)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.stars
