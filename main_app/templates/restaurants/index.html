@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+{% endblock %} 
+{% block content %}
+
+<section>
+  <div>Restaurant Index</div>
+  {% for restaurant in restaurants %}
+    <div class="card">
+      <div class="card-content">
+        <h2 class="card-title">{{ restaurant.name }}</h2>
+        <p><small>{{ restaurant.category }}</small></p>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

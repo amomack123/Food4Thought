@@ -10,7 +10,22 @@
         </title>
     </head>
     <body>
-        {% block body %} 
-        {% endblock %}
-    </body>
+        <header>
+          <div>
+            <a href="/">
+              <img src=""/>
+            </a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="/about">About</a></li>
+              <li><a href="/restaurants">All Restaurants</a></li>
+            </ul>
+          </nav>
+        </header>
+        <main>
+         {% block content %} 
+         {% endblock %}
+         </main>
+      </body>
 </html>

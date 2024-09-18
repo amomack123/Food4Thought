@@ -31,7 +31,7 @@ response = requests.get(url=ENDPOINT,
 business_data = response.json()  
 
 # print the data
-print(json.dumps(business_data, indent = 3))
+# print(json.dumps(business_data, indent = 3))
 
 # Define Phone Parameter - Phone Search - MUST START WITH "+" and the COUNTRY CODE
 #PARAMETERS = {'phone': '+18584340001'}
