@@ -9,8 +9,12 @@
   {% for restaurant in restaurants %}
     <div class="card">
       <div class="card-content">
-        <h2 class="card-title">{{ restaurant.name }}</h2>
-        <p><small>{{ restaurant.category }}</small></p>
+        <div class="card">
+            <a href="/restaurants/{{restaurant.id}}">
+                <h2 class="card-title">{{ restaurant.name }}</h2>
+                <p><small>{{ restaurant.category }}</small></p>
+            </a>
+        </div>
       </div>
     </div>
   {% endfor %}

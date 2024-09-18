@@ -1,0 +1,13 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="" />
+{% endblock %} 
+{% block content %}
+<section>
+  <div>
+    <h1>{{ restaurant.name }}</h1>
+    <p>{{ restaurant.category }}</p>
+  </div>
+</section>
+{% endblock %}
