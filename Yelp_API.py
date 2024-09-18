@@ -28,7 +28,7 @@ response = requests.get(url=ENDPOINT,
                         headers=HEADERS)
 
 # Convert response to a JSON String
-business_data = response.json()  
+business_data = response.json()
 
 # print the data
 # print(json.dumps(business_data, indent = 3))
