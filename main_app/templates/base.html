@@ -16,7 +16,7 @@
             <ul>
               {% if user.is_authenticated %}
                 <li><a href="{% url 'restaurant-index' %}">All Restaurants</a></li>
-                <li><a href="">My Favorite Restaurants</a></li>
+                <li><a href="{% url 'favorites-list' %}">My Favorite Restaurants</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li>
                     <form id="logout-form" method="post" action="{% url 'logout' %}">
