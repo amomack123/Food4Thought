@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
-from .models import Restaurant, Review
+from .models import Restaurant, Review, Favorites
 from .forms import ReviewForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Yelp_API import get_restaurant_details_by_id
 import requests
 
-MY_API_KEY = 'Gg65rpmjeX_dtHi23G6_dX9GrUnRI8i-p5x4SSTcmyUi8C2pElUS-bvsn2nbuIrPc1QvfxV9lMxvGeVGmkeI3D8b8tIw7CfTqdvr36sXpCtPSIjMO493ccuH5QHqZnYx'
+MY_API_KEY = 'AuahkYV8gyLfJjQW9d7B-W0JEVNbeeojSLFHbNC5vGp_SXfr2wj6nPb2aqbc3CRbmhOPxgAmDqwj08L2KH-GNa3fCTU3F7Jk2NMdVigSE6P72tYPVxy99q-SbWDsZnYx'
 
 class Home(LoginView):
     template_name = 'home.html'
@@ -45,6 +45,14 @@ def add_review(request, restaurant_id):
         new_review.save()
     return redirect('restaurant-detail', restaurant_id=restaurant_id)
 
+# Adding restaurant to favorites
+@login_required
+def add_to_favorites(request, restaurant_id):
+    favorite, created = Favorites.objects.get_or_create(user=request.user, restaurant_id=restaurant_id)
+    # restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
+    # request.user.favorite_restaurants.add(restaurant)
+    return redirect('favorites-list')
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -69,7 +77,23 @@ def restaurant_detail(request, restaurant_id):
         return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form})
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
-    
+
+@login_required
+def favorites_list(request, restaurant_id):
+    favorites = Favorites.objects.filter(user=request.user) # get the user's favorite restaurants
+    # restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    favorite_restaurants = []
+
+    # Fetch details from Yelp API for each favorited restaurant
+    api_key = MY_API_KEY
+    headers = {'Authorization': f'Bearer {api_key}'}
+
+    for favorite in favorites:
+        response = requests.get(f'https://api.yelp.com/v3/businesses/{favorite.restaurant_id}', headers=headers)
+        if response.status_code == 200:
+            favorite_restaurants.append(response.json())
+
+    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites})
 
     # def restaurant_detail(request, restaurant_id):
 #     # Call the function to get restaurant details by its ID

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Favorite Restaurants</h1>
+
+{% if favorites %}
+  <ul>
+    {% for restaurant in favorites %}
+      <li>
+        <a href="{% url 'restaurant-detail' restaurant.id %}">
+          {{ restaurant.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>You don't have any favorite restaurants yet.</p>
+{% endif %}
+
+{% endblock %}
