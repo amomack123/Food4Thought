@@ -17,6 +17,9 @@
                 <p>{{ element.title }}</p>
                 {% endfor %}
             </a>
+            <a href="{% url 'add-to-favorites' restaurant.id %}">
+              Add to Favorites
+            </a>
         </div>
       </div>
     </div>
