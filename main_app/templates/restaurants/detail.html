@@ -6,15 +6,9 @@
 {% block content %}
 <section>
   <div>
-    <h1>{{ restaurant.name }}</h1>
-    <p>{{ restaurant.category }}</p>
+    <h1>{{restaurant}}</h1>
+    <p>{{ restaurant}}</p>
   </div>
 </section>
 
-<h3>Write a Review</h3>
-<form action="{% url 'add-review' restaurant.id %}" method="post" autocomplete="off">
-  {% csrf_token %}
-  {{ review_form.as_p }}
-  <button type="submit">Submit Review</button>
-</form>
 {% endblock %}
