@@ -78,12 +78,8 @@ WSGI_APPLICATION = 'Food4Thought.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'reviews',
+        'NAME': 'restaurant_reviews_db',
     },
-    'secondary': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'favorites',
-    }
 }
 
 

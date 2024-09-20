@@ -48,7 +48,7 @@ def add_review(request, restaurant_id):
 # Adding restaurant to favorites
 @login_required
 def add_to_favorites(request, restaurant_id):
-    favorite, created = Favorites.objects.using('secondary').get_or_create(user=request.user, restaurant_id=restaurant_id)
+    favorite, created = Favorites.objects.get_or_create(user=request.user, restaurant_id=restaurant_id)
     # restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
     # request.user.favorite_restaurants.add(restaurant)
     return redirect('favorites-list')
@@ -80,7 +80,7 @@ def restaurant_detail(request, restaurant_id):
 
 @login_required
 def favorites_list(request, restaurant_id):
-    favorites = Favorites.objects.using('secondary').filter(user=request.user) # get the user's favorite restaurants
+    favorites = Favorites.objects.filter(user=request.user) # get the user's favorite restaurants
     # restaurant = get_object_or_404(Restaurant, id=restaurant_id)
     favorite_restaurants = []
 

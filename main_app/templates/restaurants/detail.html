@@ -10,7 +10,7 @@
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
   </div>
-  <form action="{% url 'favorites-list' restaurant_id %}" method="post">
+  <form action="" method="post">
     {% csrf_token %}
     <button type="submit">
       {% if user in restaurant.favorites_list.all %}
