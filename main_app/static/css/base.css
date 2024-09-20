@@ -9,10 +9,13 @@ body {
 }
 
 nav {
-    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
     padding: 1px 1px 1px 1px;
     background-color: brown;
     border-radius: 10px;
+    box-shadow: 5px 5px 5px gray;
 }
 
 a {
@@ -25,9 +28,8 @@ a:visited {
 }
 
 nav ul {
+    width: 40%;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
     flex-wrap: wrap;
     list-style-type: none;
     padding: 0;
@@ -39,16 +41,44 @@ nav li {
     border-radius: 10px;
     background-color: white;
     text-decoration: underline;
+    box-shadow: 5px 5px 5px black;
+    background-color: coral;
 }
 
 button {
     font-family: "Playpen Sans", cursive;
-    font-size: 20px;
+    font-size: 15px;
     background-color: white;
     border: none;
     text-decoration: underline;
+    background-color: coral;
+}
+
+ul.right {
+    justify-content: end;
+    text-align: center;
+}
+
+ul.left {
+    justify-content: start;
+    text-align: center;
 }
 
 button:hover {
     cursor: pointer;
 }
+
+@media (max-width: 600px) {
+    nav {
+      font-size: 10px;
+    }
+
+    /* nav li {
+        padding: 5px 10px 5px 10px;
+        margin: 0 10px 0 10px;
+    } */
+
+    button {
+        font-size: 10px;
+    }
+  }
