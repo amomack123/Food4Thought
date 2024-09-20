@@ -34,7 +34,7 @@ def restaurant_index(request):
     headers = {'Authorization': 'bearer %s' % MY_API_KEY}
     params = {
         'location': location,
-        'term': 'restaurants',
+        'term': category,
         'limit': 10
     }
 

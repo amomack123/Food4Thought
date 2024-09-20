@@ -10,7 +10,16 @@
         <form action="" method="post">
             {% csrf_token %}
             <input type="text" placeholder="Enter a city.." name="location">
-            <input type="text" placeholder="Enter a category.." name="category">
+            <label for="category" placeholder="Enter a category.."></label>
+                <select name="category" id="category">
+                    <option value="">--Please choose an category--</option>
+                    <option value="restaurants">Restaurants</option>
+                    <option value="cafes">Cafes</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="bars">Bars</option>
+                    <option value="grocery">Grocery</option>
+                    <option value="breakfast">Breakfast</option>
+                </select>
             <button>?</button>
           </form>
     </div>
