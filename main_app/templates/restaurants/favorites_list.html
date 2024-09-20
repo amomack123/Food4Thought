@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section>
+    <h2>My Favorite Restaurants</h2>
+    
+    {% if favorites %}
+        <ul class="favorite-list">
+            {% for favorite in favorites %}
+                <li class="favorite-item">
+                   <h3>{{ favorite.restaurant_id }}</h3>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no favorite restaurants yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
