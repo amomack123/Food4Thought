@@ -21,14 +21,21 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-
 def restaurant_index(request):
+    data = ""
+    if request.method == "POST":
+        location = request.POST.get('location')
+        category = request.POST.get('category')
+
+
+    restaurants = []
+
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'bearer %s' % MY_API_KEY}
     params = {
-        'location': 'San Francisco',
+        'location': location,
         'term': 'restaurants',
-        'limit': 5
+        'limit': 10
     }
 
     response = requests.get(url, headers=headers, params=params)
