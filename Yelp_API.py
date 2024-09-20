@@ -72,7 +72,6 @@ def get_restaurant_details_by_id(restaurant_id):
         'phone': response.get('display_phone')  # You can change this to another attribute if you prefer
     }
 
-
     return restaurant_info
 
 

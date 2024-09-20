@@ -13,22 +13,29 @@
     <body>
         <header>
           <nav>
-            <ul>
               {% if user.is_authenticated %}
+              <ul class="left">
                 <li><a href="{% url 'restaurant-index' %}">All Restaurants</a></li>
-                <li><a href="{% url 'favorites-list' %}">My Favorite Restaurants</a></li>
+                <li><a href="{% url 'favorites-list' %}">Favorite Restaurants</a></li>
+              </ul>
+              <ul class="right">
                 <li><a href="{% url 'about' %}">About</a></li>
-                <li>
+                <li class="logout">
                     <form id="logout-form" method="post" action="{% url 'logout' %}">
                       {% csrf_token %}
                       <button type="submit">Log out</button>
                     </form>
                 </li>
+            </ul>
               {% else %}
+            <ul class="left">
                 <li><a href="{% url 'restaurant-index' %}">All Restaurants</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
+            </ul>
+            <ul class="right">
                 <li><a href="{% url 'home' %}">Login</a></li>
                 <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            </ul>
               {% endif %}
             </ul>
           </nav>
