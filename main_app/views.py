@@ -22,13 +22,11 @@ def about(request):
     return render(request, 'about.html')
 
 def restaurant_index(request):
-    data = ""
+    location = ""
+    category = ""
     if request.method == "POST":
         location = request.POST.get('location')
         category = request.POST.get('category')
-
-
-    restaurants = []
 
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'bearer %s' % MY_API_KEY}
