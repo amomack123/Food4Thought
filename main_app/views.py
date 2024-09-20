@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Yelp_API import get_restaurant_details_by_id
 import requests
 
-MY_API_KEY = 'Gg65rpmjeX_dtHi23G6_dX9GrUnRI8i-p5x4SSTcmyUi8C2pElUS-bvsn2nbuIrPc1QvfxV9lMxvGeVGmkeI3D8b8tIw7CfTqdvr36sXpCtPSIjMO493ccuH5QHqZnYx'
+MY_API_KEY = 'AuahkYV8gyLfJjQW9d7B-W0JEVNbeeojSLFHbNC5vGp_SXfr2wj6nPb2aqbc3CRbmhOPxgAmDqwj08L2KH-GNa3fCTU3F7Jk2NMdVigSE6P72tYPVxy99q-SbWDsZnYx'
 
 class Home(LoginView):
     template_name = 'home.html'
@@ -28,7 +28,7 @@ def restaurant_index(request):
     params = {
         'location': 'San Francisco',
         'term': 'restaurants',
-        'limit': 10
+        'limit': 5
     }
 
     response = requests.get(url, headers=headers, params=params)
