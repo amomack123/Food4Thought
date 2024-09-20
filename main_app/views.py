@@ -28,7 +28,7 @@ def restaurant_index(request):
     params = {
         'location': 'San Francisco',
         'term': 'restaurants',
-        'limit': 10
+        'limit': 5
     }
 
     response = requests.get(url, headers=headers, params=params)

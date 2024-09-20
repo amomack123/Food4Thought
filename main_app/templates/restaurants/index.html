@@ -1,12 +1,13 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-index.css' %}" />
 {% block head %}
-{% endblock %} 
+{% endblock %}
 {% block content %}
 
 <section>
-  <div>Restaurant Index</div>
-  {% for restaurant in restaurants %}
+    <h1>Restaurants</h1>
+    {% for restaurant in restaurants %}
     <div class="card">
       <div class="card-content">
         <div class="card">
