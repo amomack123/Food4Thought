@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-
 STARS = (
     ('1', 1),
     ('2', 2),
@@ -25,7 +24,7 @@ class Restaurant(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('restaurant-detail', kwargs={'restaurant': self.id})
+        return reverse('restaurant-detail', kwargs={'restaurant_id': self.id})
 
 class Review(models.Model):
     stars = models.CharField(max_length=1, choices=STARS)

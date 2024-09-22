@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Yelp_API import get_restaurant_details_by_id
 import requests
 
-MY_API_KEY = 'AuahkYV8gyLfJjQW9d7B-W0JEVNbeeojSLFHbNC5vGp_SXfr2wj6nPb2aqbc3CRbmhOPxgAmDqwj08L2KH-GNa3fCTU3F7Jk2NMdVigSE6P72tYPVxy99q-SbWDsZnYx'
+MY_API_KEY = '4Z2h2Gios3QOnYb-UZ-qDhMs8udoVoB5OTPLFdD13gtsxCHEWBVjWDuuj6zJPO4l5FfnGHJfpxbaqYCKRrgXzydXRYKxfK-nZww7S3mfnNqfpMhEuBxKTdMOMF_sZnYx'
 
 class Home(LoginView):
     template_name = 'home.html'
@@ -21,14 +21,19 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-
 def restaurant_index(request):
+    location = ""
+    category = ""
+    if request.method == "POST":
+        location = request.POST.get('location')
+        category = request.POST.get('category')
+
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'bearer %s' % MY_API_KEY}
     params = {
-        'location': 'San Francisco',
-        'term': 'restaurants',
-        'limit': 5
+        'location': location,
+        'term': category,
+        'limit': 10
     }
 
     response = requests.get(url, headers=headers, params=params)
@@ -43,7 +48,7 @@ def add_review(request, restaurant_id):
         new_review = form.save(commit=False)
         new_review.restaurant_id = restaurant_id
         new_review.save()
-    return redirect('restaurant-detail', restaurant_id=restaurant_id)
+    return redirect('restaurant-detail', {'restaurant_id': restaurant_id})
 
 # Adding restaurant to favorites
 @login_required
@@ -74,7 +79,7 @@ def restaurant_detail(request, restaurant_id):
     
     # Check if the restaurant was found
     if restaurant:
-        return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form})
+        return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form , 'restaurant_id': restaurant_id})
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
 
