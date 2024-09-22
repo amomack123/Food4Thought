@@ -3,14 +3,14 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: red;
   }
   
   .card {
-    width: 275px;
+    width: 40%;
     margin: 10px;
     border: var(--borders);
     box-shadow: var(--card-box-shadow);
+    background-color: red;
   }
   
   .card-content {

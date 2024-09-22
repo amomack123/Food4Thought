@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-index.css' %}" />
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-index.css' %}" />
 {% endblock %}
 {% block content %}
 
@@ -25,6 +25,7 @@
             <button>?</button>
           </form>
     </div>
+
     <h1>Restaurants</h1>
     {% for restaurant in restaurants %}
     <div class="card">

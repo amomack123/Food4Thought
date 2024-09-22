@@ -24,7 +24,7 @@ class Restaurant(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('restaurant-detail', kwargs={'restaurant': self.id})
+        return reverse('restaurant-detail', kwargs={'restaurant_id': self.id})
 
 class Review(models.Model):
     stars = models.CharField(max_length=1, choices=STARS)
