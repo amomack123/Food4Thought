@@ -29,16 +29,16 @@
     <h1>Restaurants</h1>
     {% for restaurant in restaurants %}
     <div class="card">
-      <div class="card-content">
-            <a href="/restaurants/{{restaurant.id}}">
-                <h2 class="card-title">{{ restaurant.name }}</h2>
-                {% for element in restaurant.categories %}
-                <p><small>{{ element.title }}</small></p>
-                {% endfor %}
-                <img src={{ restaurant.image_url }} alt="" height="200" width="200">
-            </a>
-            <p><a href="{% url 'add-to-favorites' restaurant.id %}">Add to Favorites</a></p>
-      </div>
+        <div class="card-content">
+              <a href="/restaurants/{{restaurant.id}}">
+                  <h2 class="card-title">{{ restaurant.name }}</h2>
+                  {% for element in restaurant.categories %}
+                  <p><small>{{ element.title }}</small></p>
+                  {% endfor %}
+              </a>
+              <p><a href="{% url 'add-to-favorites' restaurant.id %}">Add to Favorites</a></p>
+              <img class="thumbnail" src={{ restaurant.image_url }} alt="">
+        </div>
     </div>
   {% endfor %}
 </section>
