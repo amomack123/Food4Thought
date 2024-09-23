@@ -1,53 +1,7 @@
-# #Transaction Search   URL -- 'https://api.yelp.com/v3/transactions/{transaction_type}/search'
-# #Autocomplete         URL -- 'https://api.yelp.com/v3/autocomplete'
-# #Categories           URL -- 'https://api.yelp.com/v3/categories'
-# #Categories Alias     URL -- 'https://api.yelp.com/v3/categories/{alias}'
-# # Import the modules
-# import requests
-# import json
-# # Define a business ID
-# business_id = '3_TnIeQNt3Wgpn6rMjcwQA'
-# # Define API Key, Search Type, and header
-# MY_API_KEY = 'Gg65rpmjeX_dtHi23G6_dX9GrUnRI8i-p5x4SSTcmyUi8C2pElUS-bvsn2nbuIrPc1QvfxV9lMxvGeVGmkeI3D8b8tIw7CfTqdvr36sXpCtPSIjMO493ccuH5QHqZnYx'
-# ENDPOINT = 'https://api.yelp.com/v3/businesses/search'
-# HEADERS = {'Authorization': 'bearer %s' % MY_API_KEY}
-# def yelp_api_request(params=None):
-#     try:
-#         response = requests.get(ENDPOINT, headers=HEADERS, params=params)
-#         return response.json()
-#     except requests.exceptions.RequestException as e:
-#         print(f"Error making request to Yelp API: {e}")
-#         return None
-# def search_restaurants(location, term='restaurants', limit=10):
-#     params = {
-#         'location': location,
-#         'term': term,
-#         'limit': limit
-#     }
-#     return yelp_api_request(params)
-
-
-
-
-
-
-
-
-
-
-
-
-#Transaction Search   URL -- 'https://api.yelp.com/v3/transactions/{transaction_type}/search'
-#Autocomplete         URL -- 'https://api.yelp.com/v3/autocomplete'
-#Categories           URL -- 'https://api.yelp.com/v3/categories'
-#Categories Alias     URL -- 'https://api.yelp.com/v3/categories/{alias}'
-# Import the modules
 import requests
 import json
-# Define a business ID
-# business_id = '3_TnIeQNt3Wgpn6rMjcwQA'
-# Define API Key, Search Type, and header
-MY_API_KEY = 'AuahkYV8gyLfJjQW9d7B-W0JEVNbeeojSLFHbNC5vGp_SXfr2wj6nPb2aqbc3CRbmhOPxgAmDqwj08L2KH-GNa3fCTU3F7Jk2NMdVigSE6P72tYPVxy99q-SbWDsZnYx'
+
+MY_API_KEY = '4Z2h2Gios3QOnYb-UZ-qDhMs8udoVoB5OTPLFdD13gtsxCHEWBVjWDuuj6zJPO4l5FfnGHJfpxbaqYCKRrgXzydXRYKxfK-nZww7S3mfnNqfpMhEuBxKTdMOMF_sZnYx'
 ENDPOINT = 'https://api.yelp.com/v3/businesses/'
 HEADERS = {'Authorization': 'bearer %s' % MY_API_KEY}
 # This function is contacting the Yelp API through our endpoint and checking for error handling as well.
@@ -73,6 +27,3 @@ def get_restaurant_details_by_id(restaurant_id):
     }
 
     return restaurant_info
-
-
-

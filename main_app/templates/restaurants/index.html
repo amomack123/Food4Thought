@@ -11,14 +11,14 @@
     <div class="card">
       <div class="card-content">
         <div class="card">
-            <a href="/restaurants/{{restaurant.id}}">
+            <a href="/home/restaurants/{{restaurant.id}}">
                 <h2 class="card-title">{{ restaurant.name }}</h2>
                 {% comment %} <p><small>{{ restaurant.categories }}</small></p> {% endcomment %}
                 {% for element in restaurant.categories %}
                 <p>{{ element.title }}</p>
                 {% endfor %}
             </a>
-            <a href="{% url 'add-to-favorites' restaurant.id %}">
+            <a href="">
               Add to Favorites
             </a>
         </div>
