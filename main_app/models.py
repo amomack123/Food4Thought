@@ -13,7 +13,7 @@ STARS = (
 # STARS = [(i, str(i)) for i in range(1, 6)]
 
 class Restaurant(models.Model):
-    # yelp_id = models.CharField(max_length=100, unique=True)
+    yelp_id = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
