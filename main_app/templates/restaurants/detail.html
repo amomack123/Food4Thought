@@ -11,19 +11,13 @@
     <h1>{{ restaurant.name }}</h1>
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
+    <p>Category: {{ restaurant.category }}</p>
+    <p>Image URL: {{ restaurant.image_url }}</p>
   </div>
 
-  <img src="{{ restaurant.image_url }}" alt="Restaurant Image">
-  <div class="restaurant-actions">
-  <form action="{% url 'favorites-list' %}" method="post">
+  <form action="{% url 'save-restaurant' restaurant_id %}" method="POST">
     {% csrf_token %}
-    <button type="submit">
-      {% if user in restaurant.favorites_list.all %}
-        Unfavorite
-      {% else %}
-        Favorite
-      {% endif %}
-    </button>
+    <button type="submit">Save to My List</button>
   </form>
   </div>
 <div class="restaurant-reviews">
@@ -36,8 +30,8 @@
           <p>Rating: {{ review.stars }} stars</p>
           <p>{{ review.comment }}</p>
           {% if user == review.user %}
-            <a href="{% url 'review_update' restaurant.id review.id %}">Edit</a>
-            <a href="{% url 'review_delete' restaurant.id review.id %}">Delete</a>
+            {% comment %} <a href="{% url 'review_update' restaurant.id review.id %}">Edit</a>
+            <a href="{% url 'review_delete' restaurant.id review.id %}">Delete</a> {% endcomment %}
           {% endif %}
         </li>
       {% endfor %}
@@ -46,7 +40,6 @@
     <p>No reviews yet. Be the first to review this restaurant!</p>
   {% endif %}
 
-  <p>{{ restaurant_id }}</p>
   {% if user.is_authenticated %}
     <h3>Add a Review</h3>
     <form action="{% url 'add-review' restaurant_id %}" method="POST">

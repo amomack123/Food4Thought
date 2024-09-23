@@ -11,7 +11,12 @@
   margin: 10px;
   border: var(--borders);
   background-color: brown;
-  box-shadow: 5px 5px 5px black;
+  box-shadow: 5px 5px 5px gray;
+}
+
+.card-content:hover {
+  opacity: 0.5;
+  background-color: red;
 }
 
 .card-content {
@@ -44,6 +49,8 @@
 
 h1 {
   text-align: center;
+  color: white;
+  text-decoration: underline;
 }
 
 .favorites {
@@ -53,14 +60,4 @@ h1 {
 .center {
   padding: 10px;
   text-align: center;
-}
-
-button {
-  font-family: "Playpen Sans", cursive;
-  font-size: 15px;
-  border: none;
-  padding: 5px;
-  border-radius: 7px;
-  text-decoration: underline;
-  background-color: coral;
 }
