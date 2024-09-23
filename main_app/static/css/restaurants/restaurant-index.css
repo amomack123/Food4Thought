@@ -45,3 +45,22 @@
 h1 {
   text-align: center;
 }
+
+.favorites {
+  text-decoration: underline;
+}
+
+.center {
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  font-family: "Playpen Sans", cursive;
+  font-size: 15px;
+  border: none;
+  padding: 5px;
+  border-radius: 7px;
+  text-decoration: underline;
+  background-color: coral;
+}
