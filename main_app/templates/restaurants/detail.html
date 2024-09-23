@@ -10,6 +10,7 @@
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
   </div>
+  <img src="{{ restaurant.image_url }}" alt="Restaurant Image">
   <div class="restaurant-actions">
   <form action="{% url 'favorites-list' %}" method="post">
     {% csrf_token %}

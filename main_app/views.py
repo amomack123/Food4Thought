@@ -73,7 +73,6 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 def restaurant_detail(request, restaurant_id):
-    # Call the function to get restaurant details by its ID
     restaurant = get_restaurant_details_by_id(restaurant_id)
     review_form = ReviewForm()
     
