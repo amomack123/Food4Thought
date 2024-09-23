@@ -1,30 +1,50 @@
 {% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-index.css' %}" />
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-index.css' %}" />
 {% endblock %}
 {% block content %}
 
 <section>
-    <h1>Restaurants</h1>
-    {% for restaurant in restaurants %}
-    <div class="card">
-      <div class="card-content">
-        <div class="card">
-            <a href="/restaurants/{{restaurant.id}}">
-                <h2 class="card-title">{{ restaurant.name }}</h2>
-                {% comment %} <p><small>{{ restaurant.categories }}</small></p> {% endcomment %}
-                {% for element in restaurant.categories %}
-                <p>{{ element.title }}</p>
-                {% endfor %}
-            </a>
-            <a href="{% url 'add-to-favorites' restaurant.id %}">
-              Add to Favorites
-            </a>
-        </div>
-      </div>
+    <div class="center">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Enter a city.." name="location">
+            <label for="category" placeholder="Enter a category.."></label>
+                <select name="category" id="category">
+                    <option value="">--Please choose an category--</option>
+                    <option value="restaurants">Restaurants</option>
+                    <option value="cafes">Cafes</option>
+                    <option value="dessert">Dessert</option>
+                    <option value="bars">Bars</option>
+                    <option value="grocery">Grocery</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="diners">Diners</option>
+                    <option value="fastfood">Fast Food</option>
+                </select>
+            <button>Search</button>
+          </form>
     </div>
-  {% endfor %}
+
+    <h1>Restaurants</h1>
+    <div class="card-container">
+    {% for restaurant in restaurants %}
+      <div class="card">
+          <div class="card-content">
+            <div>
+                <a href="/restaurants/{{restaurant.id}}">
+                    <h2 class="card-title">{{ restaurant.name }}</h2>
+                    {% for element in restaurant.categories %}
+                    <p><small>{{ element.title }}</small></p>
+                    {% endfor %}
+                </a>
+                <a class="favorites" href="{% url 'add-to-favorites' restaurant.id %}">Add to Favorites</a>
+            </div>
+            <img class="thumbnail" src={{ restaurant.image_url }} alt="">
+          </div>
+      </div>
+    {% endfor %}
+    </div>
 </section>
 
 {% endblock %}

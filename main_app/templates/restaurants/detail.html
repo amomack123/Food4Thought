@@ -1,8 +1,10 @@
 {% extends 'base.html' %} 
 {% load static %} 
+
 {% block head %}
 <link rel="stylesheet" href="" />
 {% endblock %} 
+
 {% block content %}
 <section>
   <div>
@@ -10,7 +12,8 @@
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
   </div>
-  <form action="" method="post">
+
+  <form action="{% url 'favorites-list' %}" method="post">
     {% csrf_token %}
     <button type="submit">
       {% if user in restaurant.favorites_list.all %}
@@ -20,6 +23,7 @@
       {% endif %}
     </button>
   </form>
+  
   <h2>Reviews</h2>
   {% if reviews %}
     <ul>
@@ -28,6 +32,10 @@
           <strong>{{ review.user.username }}:</strong>
           <p>Rating: {{ review.stars }} stars</p>
           <p>{{ review.comment }}</p>
+          {% if user == review.user %}
+            <a href="{% url 'review_update' restaurant.id review.id %}">Edit</a>
+            <a href="{% url 'review_delete' restaurant.id review.id %}">Delete</a>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
@@ -35,12 +43,13 @@
     <p>No reviews yet. Be the first to review this restaurant!</p>
   {% endif %}
 
+  <p>{{ restaurant_id }}</p>
   {% if user.is_authenticated %}
     <h3>Add a Review</h3>
-    <form method="POST">
+    <form action="{% url 'add-review' restaurant_id %}" method="POST">
       {% csrf_token %}
       {{ review_form.as_p }}
-      <button type="submit">Submit Review</button>
+      <button type="submit" class="btn submit">Submit Review</button>
     </form>
   {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add a review.</p>
