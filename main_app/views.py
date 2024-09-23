@@ -96,7 +96,6 @@ def restaurant_detail(request, restaurant_id):
             
         review_form = ReviewForm()
         reviews = Review.objects.filter(restaurant=restaurant)
-        
     
     # Check if the restaurant was found
     if restaurant:
