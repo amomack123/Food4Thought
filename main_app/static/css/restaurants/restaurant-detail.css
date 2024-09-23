@@ -1,0 +1,134 @@
+body {
+    background-color: #ffcccc;
+    margin: 0;
+    padding: 20px;
+}
+
+.restaurant-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 20px auto 0 auto;
+    background-color: whitesmoke;
+    border: 4px solid red;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.restaurant-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: brown;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.restaurant-info img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-left: 20px; 
+}
+
+.restaurant-info h1, .restaurant-info p {
+    color: #fff;
+    margin: 0;
+}
+
+.restaurant-actions {
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: #ffffff;
+}
+
+.restaurant-actions button {
+    padding: 8px 16px;
+    background-color: coral;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.restaurant-reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding: 8px;
+    background-color: brown;
+    box-sizing: border-box;
+}
+
+.restaurant-reviews h2 {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.restaurant-reviews ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.restaurant-reviews li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 5px 5px 5px gray;
+}
+
+.restaurant-reviews li p {
+    margin: 5px 0;
+    color: whitesmoke;
+}
+
+.restaurant-reviews form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.restaurant-reviews form textarea,
+.restaurant-reviews form input[type="text"],
+.restaurant-reviews form select {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    box-sizing: border-box;
+}
+
+.restaurant-reviews form button {
+    align-self: flex-start;
+    padding: 8px 16px;
+    background-color: coral;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.restaurant-detail > div:not(.restaurant-info) {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.restaurant-reviews p {
+    color: white;
+}

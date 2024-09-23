@@ -120,6 +120,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'main_app/static',
+]
+
 LOGIN_URL = 'home'
 
 LOGIN_REDIRECT_URL = 'restaurant-index'
