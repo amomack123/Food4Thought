@@ -77,18 +77,16 @@ def restaurant_detail(request, restaurant_id):
     restaurant = get_restaurant_details_by_id(restaurant_id)
     review_form = ReviewForm()
 
-    # params = {
-    #     'id': restaurant_id
-    # }
+    params = {
+        'id': restaurant_id
+    }
 
-    # response = requests.get(url, headers=headers, params=params)
-    # restaurant_query = response.json().get('businesses', [])
+    response = requests.get(url, headers=headers, params=params)
+    restaurant_query = response.json().get('businesses', [])
 
-    # print (restaurant_query)
-
-    # new_restaurant = Restaurant
-    # new_restaurant.yelp_id = restaurant_id
-    # new_restaurant.save()
+    new_restaurant = Restaurant
+    new_restaurant.yelp_id = restaurant_id
+    new_restaurant.save()
     
     # Check if the restaurant was found
     if restaurant:
