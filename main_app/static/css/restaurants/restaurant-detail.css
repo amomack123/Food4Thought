@@ -1,0 +1,73 @@
+body {
+    background-color: #ffcccc; 
+}
+
+.restaurant-detail {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: #ffffff; 
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px;
+}
+
+.restaurant-info {
+    grid-column: 1 / 2;
+    padding: 20px;
+    font-size: 24px; 
+}
+
+.restaurant-actions {
+    grid-column: 1 / 2;
+    margin-top: 20px;
+    padding-left: 20px; 
+    display: flex;
+    justify-content: flex-start;
+}
+
+.restaurant-actions button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #6c63ff; 
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px; 
+}
+
+.restaurant-reviews {
+    grid-column: 1 / 3;
+    margin-top: 40px;
+    padding: 20px;
+}
+
+.restaurant-reviews h2 {
+    margin-bottom: 20px;
+    font-size: 24px; 
+}
+
+.restaurant-reviews ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.restaurant-reviews li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 5px 5px 5px gray;
+}
+
+.restaurant-reviews li p {
+    margin: 5px 0;
+}
+
+.restaurant-actions button:hover {
+    background-color: #4e4ab5; 
+}
