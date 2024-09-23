@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from .models import Restaurant, Review
 from .forms import ReviewForm
+from django.urls import reverse
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -10,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from Yelp_API import get_restaurant_details_by_id
 import requests
 
-MY_API_KEY = '4Z2h2Gios3QOnYb-UZ-qDhMs8udoVoB5OTPLFdD13gtsxCHEWBVjWDuuj6zJPO4l5FfnGHJfpxbaqYCKRrgXzydXRYKxfK-nZww7S3mfnNqfpMhEuBxKTdMOMF_sZnYx'
+MY_API_KEY = 'AuahkYV8gyLfJjQW9d7B-W0JEVNbeeojSLFHbNC5vGp_SXfr2wj6nPb2aqbc3CRbmhOPxgAmDqwj08L2KH-GNa3fCTU3F7Jk2NMdVigSE6P72tYPVxy99q-SbWDsZnYx'
 url = 'https://api.yelp.com/v3/businesses/search'
 headers = {'Authorization': 'bearer %s' % MY_API_KEY}
 
@@ -22,6 +23,12 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
+@login_required
+def favorites_list(request):
+    favorites = request.user.favorite_restaurants.all()
+
+    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites})
 
 def restaurant_index(request):
     location = ""
@@ -43,21 +50,17 @@ def restaurant_index(request):
 
 @login_required
 def add_review(request, restaurant_id):
-    print(restaurant_id)
+    restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
     form = ReviewForm(request.POST)
     if form.is_valid():
         new_review = form.save(commit=False)
-        new_review.restaurant_id = restaurant_id
+        new_review.restaurant = restaurant
+        new_review.user = request.user
         new_review.save()
-    return redirect('restaurant-detail', {'restaurant_id': restaurant_id})
-
-# Adding restaurant to favorites
-@login_required
-def add_to_favorites(request, restaurant_id):
-    favorite, created = Favorites.objects.using('secondary').get_or_create(user=request.user, restaurant_id=restaurant_id)
-    # restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
-    # request.user.favorite_restaurants.add(restaurant)
-    return redirect('favorites-list')
+        print(f"Review saved: {new_review}")
+    else:
+        print("Form is not valid")
+    return redirect('restaurant-detail', restaurant_id=restaurant_id)
 
 def signup(request):
     error_message = ''
@@ -74,28 +77,60 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 def restaurant_detail(request, restaurant_id):
-    restaurant = get_restaurant_details_by_id(restaurant_id)
-    review_form = ReviewForm()
-
-    params = {
-        'id': restaurant_id
-    }
-
-    response = requests.get(url, headers=headers, params=params)
-    restaurant_query = response.json().get('businesses', [])
-
-    new_restaurant = Restaurant
-    new_restaurant.yelp_id = restaurant_id
-    new_restaurant.save()
+    # Call the function to get restaurant details by its ID
+    restaurant_data = get_restaurant_details_by_id(restaurant_id)
+    
+    if restaurant_data:
+        restaurant, created = Restaurant.objects.get_or_create(
+            yelp_id=restaurant_id,
+            defaults={
+                'name': restaurant_data['name'],
+                'location': restaurant_data['location'],
+                'category': restaurant_data.get('category'),
+                'image_url': restaurant_data.get('image_url')
+            }
+        )
+        
+        if created:
+            restaurant.save()
+            
+        review_form = ReviewForm()
+        reviews = Review.objects.filter(restaurant=restaurant)
     
     # Check if the restaurant was found
     if restaurant:
-        return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form , 'restaurant_id': restaurant_id})
+        return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form, 'reviews': reviews, 'restaurant_id': restaurant_id})
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
+    
+def save_restaurant(request, restaurant_id):
+    restaurant_data = get_restaurant_details_by_id(restaurant_id)
+    
+    if restaurant_data:
+        restaurant, created = Restaurant.objects.get_or_create(
+            yelp_id=restaurant_id,
+            defaults={
+                'name': restaurant_data['name'],
+                'location': restaurant_data['location'],
+                'category': restaurant_data['category'],
+                'image_url': restaurant_data['image_url']
+            }
+        )
+        
+        request.user.favorite_restaurants.add(restaurant)
+        
+        
+        return redirect(reverse('favorites-list'))
+    else:
+        return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
+    
 
-@login_required
-def favorites_list(request):
-    favorites = Favorites.objects.filter(user=request.user) # get the user's favorite restaurants
-
-    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites})
+def review_update(request):
+    restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect('restaurant-detail', restaurant)
+    
