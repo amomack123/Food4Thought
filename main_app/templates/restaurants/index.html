@@ -38,7 +38,6 @@
                     <p><small>{{ element.title }}</small></p>
                     {% endfor %}
                 </a>
-                <a class="favorites" href="{% url 'add-to-favorites' restaurant.id %}">Add to Favorites</a>
             </div>
             <img class="thumbnail" src={{ restaurant.image_url }} alt="">
           </div>
