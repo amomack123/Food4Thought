@@ -1,11 +1,17 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .card {
   display: flex;
   flex-direction: row;
   width: 40%;
   margin: 10px;
   border: var(--borders);
-  box-shadow: var(--card-box-shadow);
-  background-color: red;
+  background-color: brown;
+  box-shadow: 5px 5px 5px black;
 }
 
 .card-content {
@@ -34,4 +40,27 @@
   height: 150px;
   width: 150px;
   object-fit: cover;
+}
+
+h1 {
+  text-align: center;
+}
+
+.favorites {
+  text-decoration: underline;
+}
+
+.center {
+  padding: 10px;
+  text-align: center;
+}
+
+button {
+  font-family: "Playpen Sans", cursive;
+  font-size: 15px;
+  border: none;
+  padding: 5px;
+  border-radius: 7px;
+  text-decoration: underline;
+  background-color: coral;
 }
