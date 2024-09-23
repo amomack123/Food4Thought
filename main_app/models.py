@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-
 STARS = (
     ('1', 1),
     ('2', 2),
@@ -12,6 +11,7 @@ STARS = (
 )
 
 class Restaurant(models.Model):
+    yelp_id = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     category = models.CharField(max_length=100)

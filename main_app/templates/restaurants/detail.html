@@ -42,7 +42,8 @@
   {% else %}
     <p>No reviews yet. Be the first to review this restaurant!</p>
   {% endif %}
-  <p>{{restaurant_id}}</p>
+
+  <p>{{ restaurant_id }}</p>
   {% if user.is_authenticated %}
     <h3>Add a Review</h3>
     <form action="{% url 'add-review' restaurant_id %}" method="POST">

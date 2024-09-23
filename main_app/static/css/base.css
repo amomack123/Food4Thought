@@ -28,7 +28,7 @@ a:visited {
 }
 
 nav ul {
-    width: 40%;
+    width: 50%;
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;
@@ -39,7 +39,6 @@ nav li {
     padding: 5px 15px 5px 15px;
     margin: 0 20px 0 20px;
     border-radius: 10px;
-    background-color: white;
     text-decoration: underline;
     box-shadow: 5px 5px 5px black;
     background-color: coral;
@@ -48,7 +47,6 @@ nav li {
 button {
     font-family: "Playpen Sans", cursive;
     font-size: 15px;
-    background-color: white;
     border: none;
     text-decoration: underline;
     background-color: coral;
