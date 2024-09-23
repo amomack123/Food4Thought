@@ -11,9 +11,11 @@ from Yelp_API import get_restaurant_details_by_id
 import requests
 
 MY_API_KEY = '4Z2h2Gios3QOnYb-UZ-qDhMs8udoVoB5OTPLFdD13gtsxCHEWBVjWDuuj6zJPO4l5FfnGHJfpxbaqYCKRrgXzydXRYKxfK-nZww7S3mfnNqfpMhEuBxKTdMOMF_sZnYx'
+url = 'https://api.yelp.com/v3/businesses/search'
+headers = {'Authorization': 'bearer %s' % MY_API_KEY}
 
 class Home(LoginView):
-    template_name = 'home.html'
+    template_name = 'home.html'  
 
 def home(request):
     return render(request, 'base.html')
@@ -28,8 +30,6 @@ def restaurant_index(request):
         location = request.POST.get('location')
         category = request.POST.get('category')
 
-    url = 'https://api.yelp.com/v3/businesses/search'
-    headers = {'Authorization': 'bearer %s' % MY_API_KEY}
     params = {
         'location': location,
         'term': category,
@@ -76,6 +76,19 @@ def restaurant_detail(request, restaurant_id):
     # Call the function to get restaurant details by its ID
     restaurant = get_restaurant_details_by_id(restaurant_id)
     review_form = ReviewForm()
+
+    # params = {
+    #     'id': restaurant_id
+    # }
+
+    # response = requests.get(url, headers=headers, params=params)
+    # restaurant_query = response.json().get('businesses', [])
+
+    # print (restaurant_query)
+
+    # new_restaurant = Restaurant
+    # new_restaurant.yelp_id = restaurant_id
+    # new_restaurant.save()
     
     # Check if the restaurant was found
     if restaurant:
