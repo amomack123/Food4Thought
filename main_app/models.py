@@ -1,7 +1,5 @@
 from django.db import models
-from django.urls import reverse
 from django.contrib.auth.models import User
-
 
 STARS = (
     ('1', 1),
@@ -11,27 +9,22 @@ STARS = (
     ('5', 5)
 )
 
-# STARS = [(i, str(i)) for i in range(1, 6)]
-
 class Restaurant(models.Model):
-    # yelp_id = models.CharField(max_length=100, unique=True)
-    name = models.CharField(max_length=100)
+    yelp_id = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, null=True)
     location = models.CharField(max_length=100)
     category = models.CharField(max_length=100)
     image_url = models.CharField(max_length=100)
-    favorited = models.BooleanField(default=False)
+    favorited_by = models.ManyToManyField(User, related_name='favorite_restaurants', blank=True)
 
     def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('restaurant-detail', kwargs={'restaurant': self.id})
+        return self.name or f"Restaurant {self.yelp_id}"
 
 class Review(models.Model):
     stars = models.CharField(max_length=1, choices=STARS)
     comment = models.TextField(max_length=250)
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    restaurant = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
-    def __str__(self):
-        return self.stars
+    # def __str__(self):
+    #     return f"{self.stars()}"

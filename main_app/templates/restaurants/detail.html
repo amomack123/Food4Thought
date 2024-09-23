@@ -1,16 +1,27 @@
 {% extends 'base.html' %} 
 {% load static %} 
+
 {% block head %}
-<link rel="stylesheet" href="" />
-{% endblock %} 
+<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-detail.css' %}">
+{% endblock %}
+
 {% block content %}
-<section>
-  <div>
+<section class="restaurant-detail">
+  <div class = "restaurant-info">
     <h1>{{ restaurant.name }}</h1>
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
+    <p>Category: {{ restaurant.category }}</p>
+    <p>Image URL: {{ restaurant.image_url }}</p>
   </div>
-  
+
+  <form action="{% url 'save-restaurant' restaurant_id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Save to My List</button>
+  </form>
+  </div>
+<div class="restaurant-reviews">
+
   <h2>Reviews</h2>
   {% if reviews %}
     <ul>
@@ -19,6 +30,10 @@
           <strong>{{ review.user.username }}:</strong>
           <p>Rating: {{ review.stars }} stars</p>
           <p>{{ review.comment }}</p>
+          {% if user == review.user %}
+            {% comment %} <a href="{% url 'review_update' restaurant.id review.id %}">Edit</a>
+            <a href="{% url 'review_delete' restaurant.id review.id %}">Delete</a> {% endcomment %}
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
@@ -28,14 +43,15 @@
 
   {% if user.is_authenticated %}
     <h3>Add a Review</h3>
-    <form method="POST">
+    <form action="{% url 'add-review' restaurant_id %}" method="POST">
       {% csrf_token %}
       {{ review_form.as_p }}
-      <button type="submit">Submit Review</button>
+      <button type="submit" class="btn submit">Submit Review</button>
     </form>
   {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add a review.</p>
   {% endif %}
+</div>
 </section>
 
 {% endblock %}

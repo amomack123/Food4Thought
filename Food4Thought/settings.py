@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from Yelp_API import *
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'Food4Thought.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,8 +79,8 @@ WSGI_APPLICATION = 'Food4Thought.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'reviews',
-    }
+        'NAME': 'restaurant_reviews_db',
+    },
 }
 
 
@@ -119,9 +120,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'main_app/static',
+]
+
 LOGIN_URL = 'home'
 
-LOGIN_REDIRECT_URL = 'cat-index'
+LOGIN_REDIRECT_URL = 'restaurant-index'
 
 LOGOUT_REDIRECT_URL = 'home'
 
