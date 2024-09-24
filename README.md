@@ -36,37 +36,40 @@ Food4Thought is an innovative web application designed to help you discover rest
 
 https://github.com/Tucker-Chatfield/Food4Thought
 
-# Tucker Chatfield
+### Tucker Chatfield
 https://github.com/Tucker-Chatfield
 
-# Matthew Kim
+### Matthew Kim
 https://github.com/matthewkim1005
 
-# David Anaeme
+### David Anaeme
 https://github.com/danaeme
 
-# Amogh Maheshwari
+### Amogh Maheshwari
 https://github.com/amomack123
 
 ## References
 
-# W3Schools:
+### W3Schools:
 https://www.w3schools.com/
 
-# Stack Overflow
+### Stack Overflow
 https://stackoverflow.com/
 
-# Django Documentation
+### Django Documentation
 https://docs.djangoproject.com/en/5.1/
 
-# Yelp API: Yelp Fusion
+### Yelp API: Yelp Fusion
 https://fusion.yelp.com/
 
 ## Technologies Used
 
+For this project, we worked as a group of 4 to implement an application using the python stack (Python, Django and SQL).
+
 ![Django](https://img.shields.io/badge/-Django-2b244f?style=flat&logo=django)
 ![Python/Python3](https://img.shields.io/badge/-Python-2b244f?style=flat&logo=python)
 ![SQL](https://img.shields.io/badge/SQL-2b244f)
+![HTML5](https://img.shields.io/badge/-HTML5-2b244f?style=flat&logo=html5)
 ![CSS3](https://img.shields.io/badge/-CSS-2b244f?style=flat&logo=css3)
 
 ## Upcoming Features
