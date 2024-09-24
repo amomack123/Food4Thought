@@ -30,7 +30,26 @@ Food4Thought is an innovative web application designed to help you discover rest
 
 ## Screenshots
 
+### Home Page
+![Home Page](screenshots/home.png)
 
+### Details Page
+![Details Page](screenshots/detail.png)
+
+### Favorite Page
+![Favorite Page](screenshots/favorite.png)
+
+### Update Review Page
+![Update Review](screenshots/updateReview.png)
+
+### Delete Review Page
+![Delete Review](screenshots/deleteReview.png)
+
+### Login Page
+![Login Page](screenshots/login.png)
+
+### Signup Page
+![Signup Page](screenshots/signup.png)
 
 ## Credits
 
