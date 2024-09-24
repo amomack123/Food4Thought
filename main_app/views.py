@@ -119,14 +119,6 @@ def save_restaurant(request, restaurant_id):
         return redirect('restaurant-detail', restaurant_id=restaurant_id)
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
-    
-<<<<<<< HEAD
-# def unfavorite_restaurant(request, restaurant_id):
-#     if request.user.is_authenticated:
-#         restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
-#         request.user.favorited_restaurants.remove(restaurant)
-#         return redirect('favorites-list') 
-#     return redirect('login')
 
 def unfavorite_restaurant(request, restaurant_id):
     if request.user.is_authenticated:
