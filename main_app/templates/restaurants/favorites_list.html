@@ -6,7 +6,7 @@
 
 {% block content %}
 <section>
-    <h1>My Favorite Restaurants</h1>
+    <h1>{{ user.username }}'s Favorite Restaurants</h1>
     
     {% if favorites %}
         <div class="card-container">
@@ -19,7 +19,11 @@
                             <p></p>
                             <p>{{ favorite.location }}</p>
                         </div>
-                        <a href="{% url 'restaurant-detail' favorite.yelp_id %}">View Details</a>
+                        <a href="{% url 'restaurant-detail' favorite.yelp_id %}" class="details-button">View Details</a>
+                         <form action="{% url 'remove_favorite' favorite.yelp_id %}" method="POST" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
                     </div>
                 </div>
             {% endfor %}
