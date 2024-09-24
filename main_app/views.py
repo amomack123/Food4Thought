@@ -27,8 +27,10 @@ def about(request):
 @login_required
 def favorites_list(request):
     favorites = request.user.favorite_restaurants.all()
+    categories = favorites.values_list('category', flat=True).distinct()
 
-    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites})
+
+    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites, 'categories': categories})
 
 def restaurant_index(request):
     location = ""
@@ -86,8 +88,8 @@ def restaurant_detail(request, restaurant_id):
             defaults={
                 'name': restaurant_data['name'],
                 'location': restaurant_data['location'],
-                'category': restaurant_data.get('category'),
-                'image_url': restaurant_data.get('image_url')
+                'category': restaurant_data.get('category', 'Unknown'),
+                'image_url': restaurant_data.get('image_url', 'default-image-url')
             }
         )
         
@@ -133,4 +135,15 @@ def review_update(request):
         if form.is_valid():
             form.save()
             return redirect('restaurant-detail', restaurant)
+
+
+@login_required
+def remove_favorite(request, restaurant_id):
+    # Check if the restaurant exists
+    if Restaurant.objects.filter(yelp_id=restaurant_id).exists():
+        restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
+        # Remove the restaurant 
+        request.user.favorite_restaurants.remove(restaurant)
     
+    # Redirect back to the favorites list.
+    return redirect('favorites-list')

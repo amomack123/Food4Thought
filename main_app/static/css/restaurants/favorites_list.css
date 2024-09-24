@@ -52,17 +52,20 @@
 /* Header styling */
 h1 {
   text-align: center;
+  color: white;
 }
 
 /* Underlined text for favorites */
 .favorites {
   text-decoration: underline;
+  color: white;
 }
 
 /* Centered content */
 .center {
   padding: 10px;
   text-align: center;
+  color: white;
 }
 
 /* Button styling */
@@ -72,11 +75,61 @@ button {
   border: none;
   padding: 5px;
   border-radius: 7px;
+  background-color: transparent; 
+  color: black; 
   text-decoration: underline;
-  background-color: coral;
 }
 
 button:hover {
   cursor: pointer;
   background-color: darkorange;
+}
+
+.details-button {
+  background-color: transparent; 
+  color: black; 
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 15px;
+  text-decoration: underline; 
+  border: none;
+}
+
+.details-button:hover {
+  color: darkorange; 
+}
+
+.delete-button {
+  background-color: transparent; 
+  color: black; 
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 15px;
+  text-decoration: underline; 
+  border: none;
+}
+
+.delete-button:hover {
+  color: darkred; 
+}
+
+.craving-categories {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.craving-categories p {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.craving-categories ul {
+  list-style-type: disc;
+  padding-left: 0;
+}
+
+.craving-categories ul li {
+  font-size: 16px;
+  color: white;
 }
