@@ -96,19 +96,9 @@ def restaurant_detail(request, restaurant_id):
         )
         return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'restaurant_id': restaurant_id})
     
-<<<<<<< HEAD
     # If no restaurant data is found, return a 404 page
     return render(request, '404.html', status=404)
     
-=======
-    # Check if the restaurant was found
-    if restaurant:
-        return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form, 'reviews': reviews, 'restaurant_id': restaurant_id})
-    else:
-        return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
-
-@login_required    
->>>>>>> 76e495ba3d87c0e1bb1d8ed141dacdf1276e4133
 def save_restaurant(request, restaurant_id):
     restaurant_data = get_restaurant_details_by_id(restaurant_id)
     
@@ -131,14 +121,7 @@ def save_restaurant(request, restaurant_id):
         return redirect('restaurant-detail', restaurant_id=restaurant_id)
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
-    
-<<<<<<< HEAD
-# def unfavorite_restaurant(request, restaurant_id):
-#     if request.user.is_authenticated:
-#         restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
-#         request.user.favorited_restaurants.remove(restaurant)
-#         return redirect('favorites-list') 
-#     return redirect('login')
+
 
 def unfavorite_restaurant(request, restaurant_id):
     if request.user.is_authenticated:
@@ -157,12 +140,6 @@ def unfavorite_restaurant(request, restaurant_id):
 
 def review_update(request, restaurant_id):
     restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
-=======
-@login_required
-def review_update(request, restaurant_id, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)
-    restaurant = get_restaurant_details_by_id(restaurant_id)
->>>>>>> 76e495ba3d87c0e1bb1d8ed141dacdf1276e4133
     
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
