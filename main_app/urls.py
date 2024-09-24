@@ -11,4 +11,5 @@ urlpatterns = [
     path('restaurants/my-favorites/<str:restaurant_id>/', views.save_restaurant, name='save-restaurant'),
     path('restaurants/<str:restaurant_id>/', views.restaurant_detail, name='restaurant-detail'),
     path('accounts/signup/', views.signup, name='signup'),
+    path('restaurants/my-favorites/remove/<str:restaurant_id>/', views.remove_favorite, name='remove_favorite'),
 ]
