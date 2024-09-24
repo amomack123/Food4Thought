@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
 from .models import Restaurant, Review
 from .forms import ReviewForm
@@ -27,8 +27,10 @@ def about(request):
 @login_required
 def favorites_list(request):
     favorites = request.user.favorite_restaurants.all()
+    categories = favorites.values_list('category', flat=True).distinct()
 
-    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites})
+
+    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites, 'categories': categories})
 
 def restaurant_index(request):
     location = ""
@@ -86,8 +88,8 @@ def restaurant_detail(request, restaurant_id):
             defaults={
                 'name': restaurant_data['name'],
                 'location': restaurant_data['location'],
-                'category': restaurant_data.get('category'),
-                'image_url': restaurant_data.get('image_url')
+                'category': restaurant_data.get('category', 'Unknown'),
+                'image_url': restaurant_data.get('image_url', 'default-image-url')
             }
         )
         
@@ -102,7 +104,8 @@ def restaurant_detail(request, restaurant_id):
         return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form, 'reviews': reviews, 'restaurant_id': restaurant_id})
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
-    
+
+@login_required    
 def save_restaurant(request, restaurant_id):
     restaurant_data = get_restaurant_details_by_id(restaurant_id)
     
@@ -112,8 +115,8 @@ def save_restaurant(request, restaurant_id):
             defaults={
                 'name': restaurant_data['name'],
                 'location': restaurant_data['location'],
-                'category': restaurant_data['category'],
-                'image_url': restaurant_data['image_url']
+                'category': restaurant_data.get('category'),
+                'image_url': restaurant_data.get('image_url')
             }
         )
         
@@ -124,13 +127,31 @@ def save_restaurant(request, restaurant_id):
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
     
-
-def review_update(request):
-    restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
+@login_required
+def review_update(request, restaurant_id, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    restaurant = get_restaurant_details_by_id(restaurant_id)
     
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            return redirect('restaurant-detail', restaurant)
+            return redirect('review', restaurant_id=restaurant_id)
+    else:
+        form = ReviewForm(instance=review)
+        
+    reviews = Review.objects.filter(restaurant=restaurant)
     
+    return render(request, 'restaurants/review.html', { 'form': form, 'restaurant': restaurant, 'restaurant_id': restaurant_id, 'reviews': reviews, 'edit_review_id': review_id} )
+    
+
+@login_required
+def remove_favorite(request, restaurant_id):
+    # Check if the restaurant exists
+    if Restaurant.objects.filter(yelp_id=restaurant_id).exists():
+        restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
+        # Remove the restaurant 
+        request.user.favorite_restaurants.remove(restaurant)
+    
+    # Redirect back to the favorites list.
+    return redirect('favorites-list')
