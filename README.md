@@ -57,8 +57,10 @@ https://www.w3schools.com/
 https://stackoverflow.com/
 
 # Django Documentation
-
 https://docs.djangoproject.com/en/5.1/
+
+# Yelp API: Yelp Fusion
+https://fusion.yelp.com/
 
 ## Technologies Used
 
