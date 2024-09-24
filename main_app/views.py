@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
 from .models import Restaurant, Review
 from .forms import ReviewForm
@@ -113,8 +113,8 @@ def save_restaurant(request, restaurant_id):
             defaults={
                 'name': restaurant_data['name'],
                 'location': restaurant_data['location'],
-                'category': restaurant_data['category'],
-                'image_url': restaurant_data['image_url']
+                'category': restaurant_data.get('category'),
+                'image_url': restaurant_data.get('image_url')
             }
         )
         
@@ -126,12 +126,19 @@ def save_restaurant(request, restaurant_id):
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
     
 
-def review_update(request):
-    restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
+def review_update(request, restaurant_id, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    restaurant = get_restaurant_details_by_id(restaurant_id)
     
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            return redirect('restaurant-detail', restaurant)
+            return redirect('review', restaurant_id=restaurant_id)
+    else:
+        form = ReviewForm(instance=review)
+        
+    reviews = Review.objects.filter(restaurant=restaurant)
+    
+    return render(request, 'restaurants/review.html', { 'form': form, 'restaurant': restaurant, 'reviews': reviews, 'edit_review_id': review_id} )
     
