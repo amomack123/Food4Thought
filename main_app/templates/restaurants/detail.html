@@ -31,7 +31,7 @@
           <p>{{ review.comment }}</p>
           {% if user == review.user %}
             <a href="{% url 'review-update' restaurant_id review.id %}">Edit</a>
-            {% comment %} <a href="{% url 'review_delete' restaurant.id review.id %}">Delete</a> {% endcomment %}
+            <a href="{% url 'review-delete' restaurant_id review.id %}">Delete</a>
             {% if review.id == edit_review_id %}
             {% endif %}
           {% endif %}
