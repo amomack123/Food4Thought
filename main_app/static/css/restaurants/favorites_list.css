@@ -81,6 +81,7 @@ button.unfavorite:hover {
   margin-right: 10px;
 }
 
+<<<<<<< HEAD
 /* Wrapper for card layout */
 .card-wrapper {
   display: flex;
@@ -91,4 +92,89 @@ button.unfavorite:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+=======
+/* Header styling */
+h1 {
+  text-align: center;
+  color: white;
+}
+
+/* Underlined text for favorites */
+.favorites {
+  text-decoration: underline;
+  color: white;
+}
+
+/* Centered content */
+.center {
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+/* Button styling */
+button {
+  font-family: "Playpen Sans", cursive;
+  font-size: 15px;
+  border: none;
+  padding: 5px;
+  border-radius: 7px;
+  background-color: transparent; 
+  color: black; 
+  text-decoration: underline;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: darkorange;
+>>>>>>> 76e495ba3d87c0e1bb1d8ed141dacdf1276e4133
+}
+
+.details-button {
+  background-color: transparent; 
+  color: black; 
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 15px;
+  text-decoration: underline; 
+  border: none;
+}
+
+.details-button:hover {
+  color: darkorange; 
+}
+
+.delete-button {
+  background-color: transparent; 
+  color: black; 
+  padding: 5px;
+  border-radius: 7px;
+  font-size: 15px;
+  text-decoration: underline; 
+  border: none;
+}
+
+.delete-button:hover {
+  color: darkred; 
+}
+
+.craving-categories {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.craving-categories p {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.craving-categories ul {
+  list-style-type: disc;
+  padding-left: 0;
+}
+
+.craving-categories ul li {
+  font-size: 16px;
+  color: white;
 }
