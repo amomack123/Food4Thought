@@ -114,14 +114,19 @@ def save_restaurant(request, restaurant_id):
         )
         
         request.user.favorite_restaurants.add(restaurant)
-        
-        # return redirect(reverse('favorites-list'))
-        # return JsonResponse({'success': True, 'message': 'Restaurant saved to your favorites!'})
+
         messages.success(request, 'Restaurant saved to your favorites!')
         return redirect('restaurant-detail', restaurant_id=restaurant_id)
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
-
+    
+<<<<<<< HEAD
+# def unfavorite_restaurant(request, restaurant_id):
+#     if request.user.is_authenticated:
+#         restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
+#         request.user.favorited_restaurants.remove(restaurant)
+#         return redirect('favorites-list') 
+#     return redirect('login')
 
 def unfavorite_restaurant(request, restaurant_id):
     if request.user.is_authenticated:
@@ -145,22 +150,24 @@ def review_update(request, restaurant_id):
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            return redirect('review', restaurant_id=restaurant_id)
+            return redirect('restaurant-detail', restaurant_id=restaurant_id)
     else:
         form = ReviewForm(instance=review)
         
     reviews = Review.objects.filter(restaurant=restaurant)
     
     return render(request, 'restaurants/review.html', { 'form': form, 'restaurant': restaurant, 'restaurant_id': restaurant_id, 'reviews': reviews, 'edit_review_id': review_id} )
-    
 
 @login_required
-def remove_favorite(request, restaurant_id):
-    # Check if the restaurant exists
-    if Restaurant.objects.filter(yelp_id=restaurant_id).exists():
-        restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
-        # Remove the restaurant 
-        request.user.favorite_restaurants.remove(restaurant)
+def review_delete(request, restaurant_id, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    restaurant = get_restaurant_details_by_id(restaurant_id)
+    reviews = Review.objects.filter(restaurant=restaurant)
     
-    # Redirect back to the favorites list.
-    return redirect('favorites-list')
+    if request.method == 'POST':
+        review.delete()
+        return redirect('restaurant-detail', restaurant_id=restaurant_id)
+        
+    
+    return render(request, 'restaurants/delete.html', { 'restaurant': restaurant, 'restaurant_id': restaurant_id, 'reviews': reviews, 'delete_review_id': review_id })
+    
