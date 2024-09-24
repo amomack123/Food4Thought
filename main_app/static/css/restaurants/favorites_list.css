@@ -1,45 +1,76 @@
-/* Container for all cards */
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 /* Individual card styling */
 .card {
   display: flex;
   flex-direction: row;
-  width: 40%;
-  margin: 10px;
+  width: 48%;
+  margin: 10px 0; 
   border: var(--borders, 2px solid #ccc);
   background-color: brown;
   box-shadow: 5px 5px 5px black;
+  color: var(--text-color, white);
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 20px; /* Space between the cards */
+  margin: 20px;
 }
 
 /* Content inside the card */
 .card-content {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   padding: 10px;
   width: 100%;
 }
 
-/* Links in the card */
-.card > a {
-  text-decoration: none;
-  color: var(--text-color, white);
-}
-
-/* Card header */
+/* Header and restaurant name styling */
 .card h2 {
   margin: 10px 0;
   font-size: var(--font-xl, 1.5em);
+  color: white;
 }
 
-/* Paragraph styling */
-.card p {
-  margin: 5px 0;
+/* Aligning the location text */
+.card p.location {
   font-size: var(--font-reg, 1em);
+  margin: 10px 0;
+  color: white;
+}
+
+/* Flex container for the action buttons (Details, Unfavorite) */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Styling for buttons in the card (Details and Unfavorite) */
+.card-actions a {
+  font-size: var(--font-reg, 1em);
+  text-decoration: underline;
+  color: white;
+  padding: 5px 10px;
+}
+
+.card-actions a:hover {
+  color: coral;
+}
+
+button.unfavorite {
+  background-color: darkred;
+  color: white;
+  font-size: var(--font-reg, 1em);
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+button.unfavorite:hover {
+  background-color: red;
+  cursor: pointer;
 }
 
 /* Thumbnail image styling */
@@ -47,8 +78,21 @@
   height: 150px;
   width: 150px;
   object-fit: cover;
+  margin-right: 10px;
 }
 
+<<<<<<< HEAD
+/* Wrapper for card layout */
+.card-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+=======
 /* Header styling */
 h1 {
   text-align: center;
@@ -83,6 +127,7 @@ button {
 button:hover {
   cursor: pointer;
   background-color: darkorange;
+>>>>>>> 76e495ba3d87c0e1bb1d8ed141dacdf1276e4133
 }
 
 .details-button {
@@ -126,7 +171,8 @@ button:hover {
 
 .craving-categories ul {
   list-style-type: disc;
-  padding-left: 0;
+  padding-right: 25px; 
+  display: inline-block;
 }
 
 .craving-categories ul li {

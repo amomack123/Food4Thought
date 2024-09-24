@@ -12,7 +12,7 @@ def yelp_api_request_by_id(restaurant_id):
     except requests.exceptions.RequestException as e:
         print(f"Error making request to Yelp API: {e}")
         return None
-# THis function is actually getting the response via the given restaurant id using the Yelp API connection established in the previous function.
+
 def get_restaurant_details_by_id(restaurant_id):
     # Call the Yelp API using the business ID
     response = yelp_api_request_by_id(restaurant_id)
@@ -23,7 +23,11 @@ def get_restaurant_details_by_id(restaurant_id):
     restaurant_info = {
         'name': response.get('name'),
         'location': ', '.join(response.get('location', {}).get('display_address', [])),
+<<<<<<< HEAD
+        'phone': response.get('display_phone'), 
+=======
         'phone': response.get('display_phone'),  # You can change this to another attribute if you prefer
+>>>>>>> 76e495ba3d87c0e1bb1d8ed141dacdf1276e4133
         'category': response.get('categories')[0]['title'] if response.get('categories') else 'Unknown',
         'image_url': response.get('image_url', 'default-image-url'),
     }
