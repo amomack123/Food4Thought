@@ -2,12 +2,12 @@
 {% load static %} 
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-detail.css' %}">
-{% endblock %}
+<link rel="stylesheet" href="" />
+{% endblock %} 
 
 {% block content %}
-<section class="restaurant-detail">
-  <div class = "restaurant-info">
+<section>
+  <div>
     <h1>{{ restaurant.name }}</h1>
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
@@ -19,8 +19,7 @@
     {% csrf_token %}
     <button type="submit">Save to My List</button>
   </form>
-  </div>
-<div class="restaurant-reviews">
+  
   <h2>Reviews</h2>
   {% if reviews %}
     <ul>
@@ -30,8 +29,10 @@
           <p>Rating: {{ review.stars }} stars</p>
           <p>{{ review.comment }}</p>
           {% if user == review.user %}
-            {% comment %} <a href="{% url 'review_update' restaurant.id review.id %}">Edit</a>
-            <a href="{% url 'review_delete' restaurant.id review.id %}">Delete</a> {% endcomment %}
+            <a href="{% url 'review-update' restaurant_id review.id %}">Edit</a>
+            {% comment %} <a href="{% url 'review_delete' restaurant.id review.id %}">Delete</a> {% endcomment %}
+            {% if review.id == edit_review_id %}
+            {% endif %}
           {% endif %}
         </li>
       {% endfor %}
@@ -41,7 +42,7 @@
   {% endif %}
 
   {% if user.is_authenticated %}
-    <h3>Add a Review</h3>
+    <h3>{% if edit_review_id %}Edit{% else %}Add{% endif %} a Review</h3>
     <form action="{% url 'add-review' restaurant_id %}" method="POST">
       {% csrf_token %}
       {{ review_form.as_p }}
@@ -50,7 +51,6 @@
   {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add a review.</p>
   {% endif %}
-</div>
 </section>
 
 {% endblock %}
