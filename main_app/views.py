@@ -104,7 +104,8 @@ def restaurant_detail(request, restaurant_id):
         return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form, 'reviews': reviews, 'restaurant_id': restaurant_id})
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
-    
+
+@login_required    
 def save_restaurant(request, restaurant_id):
     restaurant_data = get_restaurant_details_by_id(restaurant_id)
     
@@ -126,7 +127,7 @@ def save_restaurant(request, restaurant_id):
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
     
-
+@login_required
 def review_update(request, restaurant_id, review_id):
     review = get_object_or_404(Review, id=review_id, user=request.user)
     restaurant = get_restaurant_details_by_id(restaurant_id)
@@ -141,9 +142,8 @@ def review_update(request, restaurant_id, review_id):
         
     reviews = Review.objects.filter(restaurant=restaurant)
     
-    return render(request, 'restaurants/review.html', { 'form': form, 'restaurant': restaurant, 'reviews': reviews, 'edit_review_id': review_id} )
+    return render(request, 'restaurants/review.html', { 'form': form, 'restaurant': restaurant, 'restaurant_id': restaurant_id, 'reviews': reviews, 'edit_review_id': review_id} )
     
-
 
 @login_required
 def remove_favorite(request, restaurant_id):

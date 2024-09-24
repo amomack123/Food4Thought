@@ -2,12 +2,12 @@
 {% load static %} 
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/restaurants/restaurant-detail.css' %}">
-{% endblock %}
+<link rel="stylesheet" href="" />
+{% endblock %} 
 
 {% block content %}
-<section class="restaurant-detail">
-  <div class = "restaurant-info">
+<section>
+  <div>
     <h1>{{ restaurant.name }}</h1>
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
@@ -19,8 +19,7 @@
     {% csrf_token %}
     <button type="submit">Save to My List</button>
   </form>
-  </div>
-<div class="restaurant-reviews">
+  
   <h2>Reviews</h2>
   {% if reviews %}
     <ul>
@@ -52,7 +51,6 @@
   {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to add a review.</p>
   {% endif %}
-</div>
 </section>
 
 {% endblock %}

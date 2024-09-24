@@ -6,7 +6,7 @@
 {% endblock %} 
 
 {% block content %}
-<form method= "POST" action="{% url 'review-update' restaurant.id edit_review_id %}">
+<form method="POST" action="{% url 'review-update' restaurant_id edit_review_id %}">
   {% csrf_token %}
 
   {{ form.as_p }}
