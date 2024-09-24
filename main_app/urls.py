@@ -6,6 +6,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('restaurants/', views.restaurant_index, name='restaurant-index'),
     path('restaurants/<str:restaurant_id>/review/<int:review_id>/', views.review_update, name='review-update'),
+    path('restaurants/<str:restaurant_id>/delete/<int:review_id>/', views.review_delete, name='review-delete'),
     path('restaurants/my-favorites/', views.favorites_list, name='favorites-list'),
     path('restaurants/<str:restaurant_id>/add-review/', views.add_review, name='add-review'),
     path('restaurants/my-favorites/<str:restaurant_id>/', views.save_restaurant, name='save-restaurant'),

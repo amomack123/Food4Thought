@@ -136,13 +136,26 @@ def review_update(request, restaurant_id, review_id):
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            return redirect('review', restaurant_id=restaurant_id)
+            return redirect('restaurant-detail', restaurant_id=restaurant_id)
     else:
         form = ReviewForm(instance=review)
         
     reviews = Review.objects.filter(restaurant=restaurant)
     
     return render(request, 'restaurants/review.html', { 'form': form, 'restaurant': restaurant, 'restaurant_id': restaurant_id, 'reviews': reviews, 'edit_review_id': review_id} )
+
+@login_required
+def review_delete(request, restaurant_id, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    restaurant = get_restaurant_details_by_id(restaurant_id)
+    reviews = Review.objects.filter(restaurant=restaurant)
+    
+    if request.method == 'POST':
+        review.delete()
+        return redirect('restaurant-detail', restaurant_id=restaurant_id)
+        
+    
+    return render(request, 'restaurants/delete.html', { 'restaurant': restaurant, 'restaurant_id': restaurant_id, 'reviews': reviews, 'delete_review_id': review_id })
     
 
 @login_required

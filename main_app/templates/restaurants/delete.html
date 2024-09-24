@@ -6,12 +6,6 @@
 {% endblock %} 
 
 {% block content %}
-<form method="POST" action="{% url 'review-update' restaurant_id edit_review_id %}">
-  {% csrf_token %}
-
-  {{ form.as_p }}
-  <button type="submit">Update Review</button>
-</form>
 <form method="POST" action="{% url 'review-delete' restaurant_id delete_review_id %}">
   {% csrf_token %}
 
