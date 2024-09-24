@@ -7,12 +7,20 @@
 
 {% block content %}
 <section class="restaurant-detail">
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
   <div class = "restaurant-info">
     <h1>{{ restaurant.name }}</h1>
     <p>Location: {{ restaurant.location }}</p>
     <p>Phone: {{ restaurant.phone }}</p>
     <p>Category: {{ restaurant.category }}</p>
-    <p>Image URL: {{ restaurant.image_url }}</p>
+    <!-- <p>Image URL: {{ restaurant.image_url }}</p> -->
+    <img src="{{ restaurant.image_url }}" alt="{{ restaurant.name }} thumbnail" class="restaurant-image">
   </div>
 
   <form action="{% url 'save-restaurant' restaurant_id %}" method="POST">

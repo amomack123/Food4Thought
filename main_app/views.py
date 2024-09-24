@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
 from .models import Restaurant, Review
 from .forms import ReviewForm
@@ -9,6 +9,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from Yelp_API import get_restaurant_details_by_id
+# from django.http import JsonResponse
+from django.contrib import messages
 import requests
 
 MY_API_KEY = 'AuahkYV8gyLfJjQW9d7B-W0JEVNbeeojSLFHbNC5vGp_SXfr2wj6nPb2aqbc3CRbmhOPxgAmDqwj08L2KH-GNa3fCTU3F7Jk2NMdVigSE6P72tYPVxy99q-SbWDsZnYx'
@@ -86,22 +88,14 @@ def restaurant_detail(request, restaurant_id):
             defaults={
                 'name': restaurant_data['name'],
                 'location': restaurant_data['location'],
-                'category': restaurant_data.get('category'),
-                'image_url': restaurant_data.get('image_url')
+                'category': restaurant_data.get('category', 'Unknown'),
+                'image_url': restaurant_data.get('image_url', 'default-image-url')
             }
         )
-        
-        if created:
-            restaurant.save()
-            
-        review_form = ReviewForm()
-        reviews = Review.objects.filter(restaurant=restaurant)
+        return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'restaurant_id': restaurant_id})
     
-    # Check if the restaurant was found
-    if restaurant:
-        return render(request, 'restaurants/detail.html', {'restaurant': restaurant, 'review_form': review_form, 'reviews': reviews, 'restaurant_id': restaurant_id})
-    else:
-        return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
+    # If no restaurant data is found, return a 404 page
+    return render(request, '404.html', status=404)
     
 def save_restaurant(request, restaurant_id):
     restaurant_data = get_restaurant_details_by_id(restaurant_id)
@@ -119,13 +113,36 @@ def save_restaurant(request, restaurant_id):
         
         request.user.favorite_restaurants.add(restaurant)
         
-        
-        return redirect(reverse('favorites-list'))
+        # return redirect(reverse('favorites-list'))
+        # return JsonResponse({'success': True, 'message': 'Restaurant saved to your favorites!'})
+        messages.success(request, 'Restaurant saved to your favorites!')
+        return redirect('restaurant-detail', restaurant_id=restaurant_id)
     else:
         return render(request, 'restaurants/detail.html', {'error': 'Restaurant not found'})
     
+# def unfavorite_restaurant(request, restaurant_id):
+#     if request.user.is_authenticated:
+#         restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
+#         request.user.favorited_restaurants.remove(restaurant)
+#         return redirect('favorites-list') 
+#     return redirect('login')
 
-def review_update(request):
+def unfavorite_restaurant(request, restaurant_id):
+    if request.user.is_authenticated:
+
+        restaurant = get_object_or_404(Restaurant, yelp_id=restaurant_id)
+        
+        request.user.favorite_restaurants.remove(restaurant)
+        
+        messages.success(request, 'Restaurant removed from your favorites!')
+        
+        return redirect('favorites-list')
+    
+    messages.warning(request, 'You need to be logged in to unfavorite restaurants.')
+    return redirect('login')
+    
+
+def review_update(request, restaurant_id):
     restaurant = Restaurant.objects.get(yelp_id=restaurant_id)
     
     if request.method == 'POST':

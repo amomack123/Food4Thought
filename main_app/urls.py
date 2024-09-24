@@ -10,4 +10,5 @@ urlpatterns = [
     path('restaurants/<str:restaurant_id>/add-review/', views.add_review, name='add-review'),
     path('restaurants/<str:restaurant_id>/', views.restaurant_detail, name='restaurant-detail'),
     path('accounts/signup/', views.signup, name='signup'),
+    path('restaurants/unfavorite/<str:restaurant_id>/', views.unfavorite_restaurant, name='unfavorite_restaurant'),
 ]
