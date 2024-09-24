@@ -58,12 +58,14 @@ h1 {
 /* Underlined text for favorites */
 .favorites {
   text-decoration: underline;
+  color: white;
 }
 
 /* Centered content */
 .center {
   padding: 10px;
   text-align: center;
+  color: white;
 }
 
 /* Button styling */
@@ -109,4 +111,25 @@ button:hover {
 
 .delete-button:hover {
   color: darkred; 
+}
+
+.craving-categories {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.craving-categories p {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+}
+
+.craving-categories ul {
+  list-style-type: disc;
+  padding-left: 0;
+}
+
+.craving-categories ul li {
+  font-size: 16px;
+  color: white;
 }

@@ -27,8 +27,10 @@ def about(request):
 @login_required
 def favorites_list(request):
     favorites = request.user.favorite_restaurants.all()
+    categories = favorites.values_list('category', flat=True).distinct()
 
-    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites})
+
+    return render(request, 'restaurants/favorites_list.html', {'favorites': favorites, 'categories': categories})
 
 def restaurant_index(request):
     location = ""
