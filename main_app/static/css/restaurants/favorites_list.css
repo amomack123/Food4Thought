@@ -171,7 +171,8 @@ button:hover {
 
 .craving-categories ul {
   list-style-type: disc;
-  padding-left: 0;
+  padding-right: 25px; 
+  display: inline-block;
 }
 
 .craving-categories ul li {
